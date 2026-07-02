@@ -22,11 +22,7 @@ The main goals of this project are:
 
 ## Dataset
 
-The dataset used in this project is stored locally in:
-
-```text
-data/diabetes.csv
-```
+The dataset used in this project is stored locally at `data/diabetes.csv`.
 
 The CSV file contains medical predictor variables and one target column.
 
@@ -61,113 +57,15 @@ This project uses:
 - pandas
 - scikit-learn
 
-The main Python script is:
-
-```text
-main.py
-```
-
-## Methodology
-
-### 1. Load the Data
-
-The dataset is loaded using pandas:
-
-```python
-diabetes_data = pd.read_csv(DATA_DIR / "diabetes.csv")
-```
-
-This converts the CSV file into a DataFrame, which makes it easier to inspect, select, and process columns.
-
-### 2. Separate Features and Target
-
-The model needs two parts:
-
-- `X`: the input features used to make predictions
-- `y`: the correct answer the model should learn to predict
-
-In this project:
-
-```python
-X = diabetes_data.drop("Outcome", axis=1)
-y = diabetes_data["Outcome"]
-```
-
-`X` contains the medical measurements, while `y` contains whether the patient has diabetes.
-
-### 3. Split the Dataset
-
-The data is split into:
-
-- 75% training data
-- 25% testing data
-
-```python
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.25,
-    random_state=42
-)
-```
-
-The training set is used to teach the model. The testing set is used to check whether the model can make good predictions on data it has not seen before.
-
-### 4. Train the Logistic Regression Model
-
-The Logistic Regression model is initialized and trained:
-
-```python
-model = LogisticRegression(max_iter=1000)
-model.fit(X_train, y_train)
-```
-
-`max_iter=1000` gives the model enough iterations to finish training without convergence warnings.
-
-### 5. Make Predictions
-
-After training, the model predicts the diabetes outcome for the testing data:
-
-```python
-y_pred = model.predict(X_test)
-```
-
-These predictions are then compared with the real test answers.
-
-### 6. Evaluate the Model
-
-The model is evaluated using:
-
-- Accuracy score
-- Confusion matrix
-- False negative count
-
-```python
-accuracy = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred)
-false_negatives = cm[1][0]
-```
+The main Python script is `main.py`.
 
 ## Results
 
-With the current dataset and random state, the script produces:
-
-```text
-Accuracy: 0.7239583333333334
-Confusion Matrix:
-[[95 28]
- [25 44]]
-False Negatives: 25
-```
+With the current dataset and random state, the script produces an accuracy of `0.7239583333333334` and `25` false negatives.
 
 ## Understanding the Confusion Matrix
 
-The confusion matrix is arranged like this:
-
-```text
-[[True Negative, False Positive],
- [False Negative, True Positive]]
-```
+The confusion matrix compares correct and incorrect predictions for both diabetes and non-diabetes outcomes.
 
 For this project result:
 
@@ -190,29 +88,13 @@ For this reason, in healthcare problems, reducing false negatives is often very 
 
 ## How to Run the Project
 
-From the project folder, run:
+From the project folder, run `python main.py`.
 
-```bash
-python main.py
-```
-
-If you are using the local virtual environment created for this project, run:
-
-```bash
-./.venv/bin/python main.py
-```
+If you are using the local virtual environment created for this project, run `./.venv/bin/python main.py`.
 
 ## Project Structure
 
-```text
-diabetes/
-├── data/
-│   └── diabetes.csv
-├── main.py
-├── README.md
-├── pyproject.toml
-└── uv.lock
-```
+The project contains the dataset in `data/diabetes.csv`, the main script in `main.py`, and project configuration files such as `pyproject.toml` and `uv.lock`.
 
 ## Conclusion
 
