@@ -33,6 +33,15 @@ def predict(model, X):
 
 # Calculate how often the model predicted the correct answer.
 def evaluate_model(y_test, y_pred):
-     accuracy = accuracy_score(y_test, y_pred)
+    accuracy = accuracy_score(y_test, y_pred)
 
-     return accuracy
+    return accuracy
+# Create a confusion matrix to compare real answers with predicted answers.
+def confusion(y_test, y_pred):
+    cm = confusion_matrix(y_test, y_pred)
+    return cm
+
+# Get the number of false negatives from the confusion matrix.
+def false_negatives(cm):
+    return cm[1][0]
+
