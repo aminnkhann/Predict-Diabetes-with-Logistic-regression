@@ -45,3 +45,28 @@ def confusion(y_test, y_pred):
 def false_negatives(cm):
     return cm[1][0]
 
+def print_results(accuracy, cm, false_negatives):
+    # Print the accuracy score.
+    print("Accuracy:", accuracy)
+
+    # Print a label before showing the confusion matrix.
+    print("Confusion Matrix:")
+
+    # Print the confusion matrix.
+    print(cm)
+
+    # Print the number of false negatives.
+    print("False Negatives:", false_negatives)
+
+
+if __name__ == '__main__':
+    diabetes_data = load_data()
+    X, y = features_and_target(diabetes_data)
+    X_train, X_test, y_train, y_test = split_data(X, y)
+    model = create_model()
+    train_model(model, X_train, y_train)
+    y_pred = predict(model, X_test)
+    accuracy = evaluate_model(y_test, y_pred)
+    cm = confusion(y_test, y_pred)
+    fn = false_negatives(cm)
+    print_results(accuracy, cm, fn)
