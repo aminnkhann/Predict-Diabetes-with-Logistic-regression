@@ -2,6 +2,7 @@ import pandas as pd  # Import pandas so we can load and work with the CSV data a
 from pathlib import Path  # Import Path so the file path works reliably from this project folder.
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 # Create the path to the folder where the dataset is stored.
 DATA_DIR = Path(__file__).parent.resolve() / "data"
@@ -25,3 +26,13 @@ def create_model():
 # Train the model.
 def train_model(model, X, y):
     model.fit(X, y)
+
+# Use the trained model to predict diabetes results for the testing data.
+def predict(model, X):
+    return model.predict(X)
+
+# Calculate how often the model predicted the correct answer.
+def evaluate_model(y_test, y_pred):
+     accuracy = accuracy_score(y_test, y_pred)
+
+     return accuracy
